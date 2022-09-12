@@ -6,9 +6,9 @@ if is_cpml_xn
             + cpml_a_mx_xn(i) * (Ey(i + 1, :, :) - Ey(i, :, :));
     end
     Hy(1:n_cpml_xn, :, :) = Hy(1:n_cpml_xn, :, :) ...
-        + Cpsi_hyx_xn(:, :, :) .* Psi_hyx_xn(:, :, :);
+        + Cpsi_hyx_xn .* Psi_hyx_xn;
     Hz(1:n_cpml_xn, :, :) = Hz(1:n_cpml_xn, :, :) ...
-        + Cpsi_hzx_xn(:, :, :) .* Psi_hzx_xn(:, :, :);
+        + Cpsi_hzx_xn .* Psi_hzx_xn;
 end
 
 if is_cpml_xp
@@ -22,9 +22,9 @@ if is_cpml_xp
     end
 
     Hy(n_st+1:nx, :, :) = Hy(n_st+1:nx, :, :) ...
-        + Cpsi_hyx_xp(:, :, :) .* Psi_hyx_xp(:, :, :);
+        + Cpsi_hyx_xp .* Psi_hyx_xp;
     Hz(n_st+1:nx, :, :) = Hz(n_st+1:nx, :, :) ...
-        + Cpsi_hzx_xp(:, :, :) .* Psi_hzx_xp(:, :, :);
+        + Cpsi_hzx_xp .* Psi_hzx_xp;
 end
 
 if is_cpml_yn
@@ -75,9 +75,9 @@ if is_cpml_zp
     n_st = nz - n_cpml_zp;
 
     for i = 1:n_cpml_zp
-        Psi_hxz_zp(:, :, i) = cpml_b_mz_zn(i) * Psi_hxz_zp(:, :, i) ...
+        Psi_hxz_zp(:, :, i) = cpml_b_mz_zp(i) * Psi_hxz_zp(:, :, i) ...
             + cpml_a_mz_zp(i) * (Ey(:, :, i + n_st + 1) - Ey(:, :, i + n_st));
-        Psi_hyz_zp(:, :, i) = cpml_b_mz_zn(i) * Psi_hyz_zp(:, :, i) ...
+        Psi_hyz_zp(:, :, i) = cpml_b_mz_zp(i) * Psi_hyz_zp(:, :, i) ...
             + cpml_a_mz_zp(i) * (Ex(:, :, i + n_st + 1) - Ex(:, :, i + n_st));
     end
     

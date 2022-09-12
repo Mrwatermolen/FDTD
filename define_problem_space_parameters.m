@@ -1,6 +1,6 @@
 disp("define_problem_space_parameters");
 
-number_time_steps = 5000;
+number_time_steps = 4000;
 
 % factor that determines duration of a time step
 % wrt CLF limit
@@ -12,47 +12,48 @@ number_cells_per_wavelength = 20; % 最高频率 f = c / (max(delta_x, delta_y, 
 number_of_cells_per_wavelength = 20;
 
 % cell size
-dx = 2.0e-4;
-dy = 2.0e-4;
-dz = 2.0e-4;
+dx = 0.406e-3;
+dy = 0.406e-3;
+dz = 0.265e-3;
 
 % define boundary stuct
 % pec boundary
-% xn means x_negative,
-boundary.type_xp = 'pec';
-boundary.air_buffer_number_of_cells_xp = 0;
-boundary.type_xn = 'pec';
-boundary.air_buffer_number_of_cells_xn = 0;
-% boundary.type_xp = 'cpml';
-% boundary.cpml_number_of_cells_xp = 5;
-% boundary.air_buffer_number_of_cells_xp = 4;
-% boundary.type_xn = 'cpml';
-% boundary.cpml_number_of_cells_xn = 5;
-% boundary.air_buffer_number_of_cells_xn = 4;
 
-boundary.type_yp = 'pec';
-boundary.air_buffer_number_of_cells_yp = 0;
-boundary.type_yn = 'pec';
-boundary.air_buffer_number_of_cells_yn = 0;
-% boundary.type_yp = 'cpml';
-% boundary.cpml_number_of_cells_yp = 5;
-% boundary.air_buffer_number_of_cells_yp = 5;
-% boundary.type_yn = 'cpml';
-% boundary.cpml_number_of_cells_yn = 5;
-% boundary.air_buffer_number_of_cells_yn = 5;
+% boundary.type_xp = 'pec';
+% boundary.air_buffer_number_of_cells_xp = 0;
+% boundary.type_xn = 'pec';
+% boundary.air_buffer_number_of_cells_xn = 0;
 
-boundary.type_zp = 'pec';
-boundary.cpml_number_of_cells_zp = 5;
-boundary.air_buffer_number_of_cells_zp = 0;
-boundary.type_zn = 'pec';
-boundary.cpml_number_of_cells_zn = 5;
-boundary.air_buffer_number_of_cells_zn = 0;
-% boundary.type_zp = 'cpml';
-% boundary.cpml_number_of_cells_zp = 5;
-% boundary.air_buffer_number_of_cells_zp = 10;
-% boundary.type_zn = 'cpml';
-% boundary.cpml_number_of_cells_zn = 5;
-% boundary.air_buffer_number_of_cells_zn = 10;
+boundary.type_xp = 'cpml';
+boundary.cpml_number_of_cells_xp = 8;
+boundary.air_buffer_number_of_cells_xp = 5;
+boundary.type_xn = 'cpml';
+boundary.cpml_number_of_cells_xn = 8;
+boundary.air_buffer_number_of_cells_xn = 5;
+
+% boundary.type_yp = 'pec';
+% boundary.air_buffer_number_of_cells_yp = 0;
+% boundary.type_yn = 'pec';
+% boundary.air_buffer_number_of_cells_yn = 0;
+
+boundary.type_yp = 'cpml';
+boundary.cpml_number_of_cells_yp = 8;
+boundary.air_buffer_number_of_cells_yp = 5;
+boundary.type_yn = 'cpml';
+boundary.cpml_number_of_cells_yn = 8;
+boundary.air_buffer_number_of_cells_yn = 5;
+
+% boundary.type_zp = 'pec';
+% boundary.air_buffer_number_of_cells_zp = 0;
+% boundary.type_zn = 'pec';
+% boundary.air_buffer_number_of_cells_zn = 0;
+
+boundary.type_zp = 'cpml';
+boundary.cpml_number_of_cells_zp = 8;
+boundary.air_buffer_number_of_cells_zp = 5;
+boundary.type_zn = 'cpml';
+boundary.cpml_number_of_cells_zn = 8;
+boundary.air_buffer_number_of_cells_zn = 5;
 
 boundary.cpml_order = 3;
 boundary.cpml_sigma_factor = 1.5;
@@ -83,7 +84,7 @@ material_type(3).color = [0 1 0];
 material_type(4).eps_r = 2.2;
 material_type(4).mu_r = 1;
 material_type(4).sigma_e = 0;
-material_type(4).sigma_m = 0.2;
+material_type(4).sigma_m = 0;
 material_type(4).color = [0 0 1];
 % dielectric B
 material_type(5).eps_r = 1;

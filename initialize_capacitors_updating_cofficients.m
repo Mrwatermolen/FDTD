@@ -24,14 +24,16 @@ for i = 1:number_capacitors
                 ./ (2 * eps_r_y(fi) * eps_0 + dt * sigma_e_y(fi) + a_term);
         case 'z'
             fi = create_linear_index_list(eps_r_z, capacitors(i).is:capacitors(i).ie, capacitors(i).js:capacitors(i).je, capacitors(i).ks:capacitors(i).ke - 1);
-            a_term = (2 * C * dz) / (R * dx * dy);
+            a_term = (2 * C * dz) / (dx * dy);
             Ceze(fi) = (2 * eps_0 * eps_r_z(fi) - dt * sigma_e_z(fi) + a_term) ...
                 ./ (2 * eps_0 * eps_r_z(fi) + dt * sigma_e_z(fi) + a_term);
+            % Ceze(fi) = (2 * eps_0 * eps_r_z(fi) - dt * sigma_e_z(fi) - a_term) ./ (2 * eps_0 * eps_r_z(fi) + dt * sigma_e_z(fi) + a_term);
+            % ??
             Cezhy(fi) = (2 * dt / dx) ...
                 ./ (2 * eps_r_z(fi) * eps_0 + dt * sigma_e_z(fi) + a_term);
             Cezhx(fi) = -(2 * dt / dy) ...
                 ./ (2 * eps_r_z(fi) * eps_0 + dt * sigma_e_z(fi) + a_term);
     end
 
-    inductors(i).field_indices = fi;
+    capacitors(i).field_indices = fi;
 end

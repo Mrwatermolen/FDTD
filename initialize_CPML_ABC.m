@@ -6,6 +6,8 @@ kappa_max = boundary.cpml_kappa_max;
 alpha_min = boundary.cpml_alpha_min;
 alpha_max = boundary.cpml_alpha_max;
 
+% x方向
+% 
 if is_cpml_xn
     sigma_max = sigma_ratio * (p_order + 1) / (150 * pi * dx);
     ncells = n_cpml_xn;
@@ -19,7 +21,8 @@ if is_cpml_xn
     alpha_ex_xn = alpha_min + (alpha_max - alpha_min) * (1 - rho_e);
     alpha_mx_xn = alpha_min + (alpha_max - alpha_min) * (1 - rho_m);
     alpha_mx_xn = (mu_0 / eps_0) * alpha_mx_xn;
-
+    %%%%
+    %%%%
     cpml_b_ex_xn = exp((-dt / eps_0) ...
         * ((sigma_pex_xn ./ kappa_ex_xn) + alpha_ex_xn));
     cpml_a_ex_xn = (1 / dx) * (cpml_b_ex_xn - 1.0) .* sigma_pex_xn ...
@@ -42,7 +45,7 @@ if is_cpml_xn
 
     for i = 1:ncells
         Ceyhz(i + 1, :, :) = Ceyhz(i + 1, :, :) / kappa_ex_xn(i);
-        Cezhy(i + 1, :, :) = Cezhy(i + 1, :, :) / kappa_mx_xn(i);
+        Cezhy(i + 1, :, :) = Cezhy(i + 1, :, :) / kappa_ex_xn(i);
         Chyez(i, :, :) = Chyez(i, :, :) / kappa_mx_xn(i);
         Chzey(i, :, :) = Chzey(i, :, :) / kappa_mx_xn(i);
     end
@@ -84,7 +87,7 @@ if is_cpml_xp
 
     for i = 1:ncells
         Ceyhz(nx - ncells + i, :, :) = Ceyhz(nx - ncells + i, :, :) / kappa_ex_xp(i);
-        Cezhy(nx - ncells + i, :, :) = Cezhy(nx - ncells + i, :, :) / kappa_mx_xp(i);
+        Cezhy(nx - ncells + i, :, :) = Cezhy(nx - ncells + i, :, :) / kappa_ex_xp(i);
         Chyez(nx - ncells + i, :, :) = Chyez(nx - ncells + i, :, :) / kappa_mx_xp(i);
         Chzey(nx - ncells + i, :, :) = Chzey(nx - ncells + i, :, :) / kappa_mx_xp(i);
     end
@@ -122,12 +125,12 @@ if is_cpml_yn
 
     Cpsi_ezy_yn = Cezhx(:, 2:ncells + 1, :) * dy;
     Cpsi_exy_yn = Cexhz(:, 2:ncells + 1, :) * dy;
-    Cpsi_hzy_yn = Chzex(:, 2:ncells + 1, :) * dy;
-    Cpsi_hxy_yn = Chxez(:, 2:ncells + 1, :)* dy;
+    Cpsi_hzy_yn = Chzex(:, 1:ncells, :) * dy;
+    Cpsi_hxy_yn = Chxez(:, 1:ncells, :) * dy;
 
     for i = 1:ncells
         Cezhx(:, i + 1, :) = Cezhx(:, i + 1, :) / kappa_ey_yn(i);
-        Cexhz(:, i + 1, :) = Cexhz(:, i + 1, :) / kappa_my_yn(i);
+        Cexhz(:, i + 1, :) = Cexhz(:, i + 1, :) / kappa_ey_yn(i);
         Chzex(:, i, :) = Chzex(:, i, :) / kappa_my_yn(i);
         Chxez(:, i, :) = Chxez(:, i, :) / kappa_my_yn(i);
     end
@@ -171,7 +174,7 @@ if is_cpml_yp
 
     for i = 1:ncells
         Cezhx(:, ny - ncells + i, :) = Cezhx(:, ny - ncells + i, :) / kappa_ey_yp(i);
-        Cexhz(:, ny - ncells + i, :) = Cexhz(:, ny - ncells + i, :)/ kappa_my_yp(i);
+        Cexhz(:, ny - ncells + i, :) = Cexhz(:, ny - ncells + i, :) / kappa_ey_yp(i);
         Chzex(:, ny - ncells + i, :) = Chzex(:, ny - ncells + i, :) / kappa_my_yp(i);
         Chxez(:, ny - ncells + i, :) = Chxez(:, ny - ncells + i, :) / kappa_my_yp(i);
     end
@@ -210,11 +213,11 @@ if is_cpml_zn
     Cpsi_exz_zn = Cexhy(:, :, 2:ncells + 1) * dz;
     Cpsi_eyz_zn = Ceyhx(:, :, 2:ncells + 1) * dz;
     Cpsi_hxz_zn = Chxey(:, :, 1:ncells) * dz;
-    Cpsi_hyz_zn = Chyex(:, :, 1:ncells)* dz;
+    Cpsi_hyz_zn = Chyex(:, :, 1:ncells) * dz;
 
     for i = 1:ncells
         Cexhy(:, :, i + 1) = Cexhy(:, :, i + 1)  / kappa_ez_zn(i);
-        Ceyhx(:, :, i + 1) = Ceyhx(:, :, i + 1)  / kappa_mz_zn(i);
+        Ceyhx(:, :, i + 1) = Ceyhx(:, :, i + 1)  / kappa_ez_zn(i);
         Chxey(:, :, i)  = Chxey(:, :, i)  / kappa_mz_zn(i);
         Chyex(:, :, i)  = Chyex(:, :, i)  / kappa_mz_zn(i);
     end
@@ -257,7 +260,7 @@ if is_cpml_zp
 
     for i = 1:ncells
         Cexhy(:, :, nz - ncells + i) = Cexhy(:, :, nz - ncells + i) / kappa_ez_zp(i);
-        Ceyhx(:, :, nz - ncells + i) = Ceyhx(:, :, nz - ncells + i) / kappa_mz_zp(i);
+        Ceyhx(:, :, nz - ncells + i) = Ceyhx(:, :, nz - ncells + i) / kappa_ez_zp(i);
         Chxey(:, :, nz - ncells + i) = Chxey(:, :, nz - ncells + i) / kappa_mz_zp(i);
         Chyex(:, :, nz - ncells + i) = Chyex(:, :, nz - ncells + i) / kappa_mz_zp(i);
     end

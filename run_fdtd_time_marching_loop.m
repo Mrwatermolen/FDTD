@@ -13,7 +13,6 @@ for time_step = 1:number_time_steps
     update_voltage_sources;
     update_current_sources;
     update_inductors;
-    % update_capacitors;
     update_diodes;
     capture_sampled_eletric_field;
     capture_sampled_voltages;
