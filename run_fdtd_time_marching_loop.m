@@ -16,6 +16,7 @@ for time_step = 1:number_time_steps
     update_diodes;
     capture_sampled_eletric_field;
     capture_sampled_voltages;
+    calculate_JandM;
     display_sampled_parameters;
 end
 

@@ -19,6 +19,7 @@ initialize_sources_and_lumped_elements; % ok
 initialize_updating_coeffients; % ok
 initialize_boundary_conditions;
 initialize_output_paprameter;
+initialize_farfield_arrays;
 initialize_display_parameters;
 
 run_fdtd_time_marching_loop;

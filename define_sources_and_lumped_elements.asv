@@ -6,6 +6,7 @@ diodes = [];
 resistors = [];
 inductors = [];
 capacitors = [];
+incident_plane_wave = [];
 
 % define source waveform types and parameters
 waveforms.sinusoidal(1).frequency = 1e9;
