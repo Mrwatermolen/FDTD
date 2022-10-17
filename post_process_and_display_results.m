@@ -8,7 +8,8 @@ if number_of_farfield_frequencies == 0
     return;
 end
 
-calculate_radiated_power;
+% calculate_radiated_power;
+calculate_incident_plane_wave_power;
 
 % 绘图参数
 step_size = 10;
@@ -16,7 +17,8 @@ Nrings = 4;
 line_style1 = "b-";
 line_style2 = "r--";
 scale_type = 'dB';
-plot_type = 'D';
+% plot_type = 'D';
+plot_type = 'RCS';
 
 number_of_angles = 360;
 

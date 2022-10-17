@@ -7,22 +7,21 @@ sampled_currents = [];
 ports = [];
 
 % 取样频率
-plotting_step = 100;
+plotting_step = 10;
 
 % frequency domain parameters
 frequency_domain.start = 2e9;
 frequency_domain.end = 6e9;
 frequency_domain.step = 20e6;
 
-farfield.frequencies(1) = 3.5e9;
-farfield.frequencies(2) = 4.3e9;
+farfield.frequencies(1) = 10e9;
 farfield.number_of_cells_from_outer_boundary = 13;
 
-% sampled_electric_fields(1).x = 30 * dx;
-% sampled_electric_fields(1).y = 13 * dy;
-% sampled_electric_fields(1).z = 10 * dz;
-% sampled_electric_fields(1).component = 'x';
-% sampled_electric_fields(1).display_plot = false;
+sampled_electric_fields(1).x = 0;
+sampled_electric_fields(1).y = 0;
+sampled_electric_fields(1).z = 0;
+sampled_electric_fields(1).component = 'x';
+sampled_electric_fields(1).display_plot = true;
 % 
 % sampled_magnetic_fields(1).x = 30 * dx;
 % sampled_magnetic_fields(1).y = 13 * dy;
@@ -30,14 +29,14 @@ farfield.number_of_cells_from_outer_boundary = 13;
 % sampled_magnetic_fields(1).component = 'm'; % mangitude
 % sampled_magnetic_fields(1).display_plot = false;
 
-sampled_voltages(1).mix_x = 0;
-sampled_voltages(1).mix_y = 12.2e-3;
-sampled_voltages(1).mix_z = 0;
-sampled_voltages(1).max_x = 0;
-sampled_voltages(1).max_y = 13.2e-3;
-sampled_voltages(1).max_z = 1e-3;
-sampled_voltages(1).direction = 'zp';
-sampled_voltages(1).display_plot = false;
+% sampled_voltages(1).mix_x = 0;
+% sampled_voltages(1).mix_y = 12.2e-3;
+% sampled_voltages(1).mix_z = 0;
+% sampled_voltages(1).max_x = 0;
+% sampled_voltages(1).max_y = 13.2e-3;
+% sampled_voltages(1).max_z = 1e-3;
+% sampled_voltages(1).direction = 'zp';
+% sampled_voltages(1).display_plot = false;
 
 % sampled_voltages(2).mix_x = 9 * dx;
 % sampled_voltages(2).mix_y = -25 * dy;
@@ -66,14 +65,14 @@ sampled_voltages(1).display_plot = false;
 % sampled_voltages(4).direction = 'zp';
 % sampled_voltages(4).display_plot = false;
 
-sampled_currents(1).mix_x = 0;
-sampled_currents(1).mix_y = 12.2e-3;
-sampled_currents(1).mix_z = 0.5e-3;
-sampled_currents(1).max_x = 0;
-sampled_currents(1).max_y = 13.2e-3;
-sampled_currents(1).max_z = 0.5e-3;
-sampled_currents(1).direction = 'zp';
-sampled_currents(1).display_plot = false;
+% sampled_currents(1).mix_x = 0;
+% sampled_currents(1).mix_y = 12.2e-3;
+% sampled_currents(1).mix_z = 0.5e-3;
+% sampled_currents(1).max_x = 0;
+% sampled_currents(1).max_y = 13.2e-3;
+% sampled_currents(1).max_z = 0.5e-3;
+% sampled_currents(1).direction = 'zp';
+% sampled_currents(1).display_plot = false;
 
 % sampled_currents(2).mix_x = 9 * dx;
 % sampled_currents(2).mix_y = -25 * dy;
@@ -102,10 +101,10 @@ sampled_currents(1).display_plot = false;
 % sampled_currents(4).direction = 'zp';
 % sampled_currents(4).display_plot = false;
 
-ports(1).sampled_voltage_index = 1;
-ports(1).sampled_current_index = 1;
-ports(1).impedancc = 50;
-ports(1).is_source_port = true;
+% ports(1).sampled_voltage_index = 1;
+% ports(1).sampled_current_index = 1;
+% ports(1).impedancc = 50;
+% ports(1).is_source_port = true;
 
 % ports(2).sampled_voltage_index = 2;
 % ports(2).sampled_current_index = 2;

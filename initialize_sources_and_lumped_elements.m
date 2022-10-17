@@ -7,7 +7,7 @@ number_inductors = size(inductors, 2);
 number_capacitors = size(capacitors, 2);
 number_diodes = size(diodes, 2);
 
-initialize_waveforms
+initialize_waveforms;
 
 % voltage sources
 for i = 1:number_voltage_sources
@@ -199,4 +199,111 @@ for i = 1:number_diodes
             sigma_e_z(diodes(i).is, diodes(i).js, diodes(i).ks + 1:diodes(i).ke - 1) = sigma_pec;
     end
 
+end
+
+if isfield(incident_plane_wave, 'E_theta')
+    incident_plane_wave.enabled = true;
+else
+    incident_plane_wave.enabled = false;
+end
+
+if incident_plane_wave.enabled == true
+    % 当前时刻的入射波
+    Exic = zeros(nx, ny_p1, nz_p1);
+    Eyic = zeros(nx_p1, ny, nz_p1);
+    Ezic = zeros(nx_p1, ny_p1, nz);
+    Hxic = zeros(nx_p1, ny, nz);
+    Hyic = zeros(nx, ny_p1, nz);
+    Hzic = zeros(nx, ny, nz_p1);
+    % 前一时刻的入射波
+    Exip = zeros(nx, ny_p1, nz_p1);
+    Eyip = zeros(nx_p1, ny, nz_p1);
+    Ezip = zeros(nx_p1, ny_p1, nz);
+    Hxip = zeros(nx_p1, ny, nz);
+    Hyip = zeros(nx, ny_p1, nz);
+    Hzip = zeros(nx, ny, nz_p1);
+
+    theta_incident = incident_plane_wave.theta_incident * pi / 180;
+    phi_incident = incident_plane_wave.phi_incident * pi / 180;
+    E_theta = incident_plane_wave.E_theta;
+    E_phi = incident_plane_wave.E_phi;
+    eta_0 = sqrt(mu_0 / eps_0);
+    Exi0 = E_theta * cos(theta_incident) * cos(phi_incident) - E_phi * sin(phi_incident);
+    Eyi0 = E_theta * cos(theta_incident) * sin(phi_incident) + E_phi * cos(phi_incident);
+    Ezi0 = -E_theta * sin(theta_incident);
+    Hxi0 = (-1 / eta_0) * (E_phi * cos(theta_incident) ...
+        * cos(phi_incident) + E_theta * sin(phi_incident));
+    Hyi0 = (-1 / eta_0) * (E_phi * cos(theta_incident) ...
+        * sin(phi_incident) - E_theta * cos(phi_incident));
+    Hzi0 = (1 / eta_0) * (E_phi * sin(theta_incident));
+
+    x_pos = zeros(nx_p1, ny_p1, nz_p1);
+    y_pos = zeros(nx_p1, ny_p1, nz_p1);
+    z_pos = zeros(nx_p1, ny_p1, nz_p1);
+    for i = 1:nx_p1
+        x_pos(i, :, :) = dx * (i - 1) + fdtd_domain.min_x;
+    end
+    for i = 1:ny_p1
+        y_pos(:, i, :) = dy * (i - 1) + fdtd_domain.min_y;
+    end
+    for i = 1:nz_p1
+        z_pos(:, :, i) = dz * (i - 1) + fdtd_domain.min_z;
+    end
+
+    % 问题空间的八个顶点
+    r0 = [fdtd_domain.min_x fdtd_domain.min_y fdtd_domain.min_z;
+        fdtd_domain.min_x fdtd_domain.min_y fdtd_domain.max_z;
+        fdtd_domain.min_x fdtd_domain.max_y fdtd_domain.min_z;
+        fdtd_domain.min_x fdtd_domain.max_y fdtd_domain.max_z;
+        fdtd_domain.max_x fdtd_domain.min_y fdtd_domain.min_z;
+        fdtd_domain.max_x fdtd_domain.min_y fdtd_domain.max_z;
+        fdtd_domain.max_x fdtd_domain.max_y fdtd_domain.min_z;
+        fdtd_domain.max_x fdtd_domain.max_y fdtd_domain.max_z;];
+
+    k_vec_x = sin(theta_incident) * cos(phi_incident);
+    k_vec_y = sin(theta_incident) * sin(phi_incident);
+    k_vec_z = cos(theta_incident);
+
+    k_dot_r0 = k_vec_x * r0(:, 1) ...
+        + k_vec_y * r0(:, 2) ...
+        + k_vec_z * r0(:, 3);
+
+    l_0 = min(k_dot_r0) / c;
+
+    k_dot_r_ex = ((x_pos(1:nx, 1:ny_p1, 1:nz_p1) + dx / 2) * k_vec_x ...
+        + y_pos(1:nx, 1:ny_p1, 1:nz_p1) * k_vec_y ...
+        + z_pos(1:nx, 1:ny_p1, 1:nz_p1) * k_vec_z) / c;
+
+    k_dot_r_ey = (x_pos(1:nx_p1, 1:ny, 1:nz_p1) * k_vec_x ...
+        + (y_pos(1:nx_p1, 1:ny, 1:nz_p1) + dy / 2) * k_vec_y ...
+        + z_pos(1:nx_p1, 1:ny, 1:nz_p1) * k_vec_z) / c;
+
+    k_dot_r_ez = (x_pos(1:nx_p1, 1:ny_p1, 1:nz) * k_vec_x ...
+        + y_pos(1:nx_p1, 1:ny_p1, 1:nz) * k_vec_y ...
+        + (z_pos(1:nx_p1, 1:ny_p1, 1:nz) + dz / 2) * k_vec_z) / c;
+
+    k_dot_r_hx = (x_pos(1:nx_p1, 1:ny, 1:nz) * k_vec_x ...
+        + (y_pos(1:nx_p1, 1:ny, 1:nz) + dy / 2) * k_vec_y ...
+        + (z_pos(1:nx_p1, 1:ny, 1:nz) + dz / 2) * k_vec_z) / c;
+
+    k_dot_r_hy = ((x_pos(1:nx, 1:ny_p1, 1:nz) + dx / 2) * k_vec_x ...
+        + y_pos(1:nx, 1:ny_p1, 1:nz) * k_vec_y ...
+        + (z_pos(1:nx, 1:ny_p1, 1:nz) + dz / 2) * k_vec_z) / c;
+
+    k_dot_r_hz = ((x_pos(1:nx, 1:ny, 1:nz_p1) + dx / 2) * k_vec_x ...
+        + (y_pos(1:nx, 1:ny, 1:nz_p1) + dy / 2) * k_vec_y ...
+        + z_pos(1:nx, 1:ny, 1:nz_p1) * k_vec_z) / c;
+
+    k_dot_r_ex = k_dot_r_ex - l_0;
+    k_dot_r_ey = k_dot_r_ey - l_0;
+    k_dot_r_ez = k_dot_r_ez - l_0;
+    k_dot_r_hx = k_dot_r_hx - l_0;
+    k_dot_r_hy = k_dot_r_hy - l_0;
+    k_dot_r_hz = k_dot_r_hz - l_0;
+
+    wt_str = incident_plane_wave.waveform_type;
+    wi_str = num2str(incident_plane_wave.waveform_index);
+    eval_str = ['a_waveform = waveforms.' wt_str '(' wi_str ').waveform;'];
+    eval(eval_str);
+    incident_plane_wave.waveform = a_waveform;
 end

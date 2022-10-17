@@ -4,6 +4,7 @@ start_time = cputime;
 current_time = 0;
 
 for time_step = 1:number_time_steps
+    update_incident_fields;
     update_magentic_field;
     update_magentic_field_CPML_ABC;
     capture_sampled_magentic_field;

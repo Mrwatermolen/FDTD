@@ -1,6 +1,6 @@
 disp("define_problem_space_parameters");
 
-number_time_steps = 10000;
+number_time_steps = 2000;
 
 % factor that determines duration of a time step
 % wrt CLF limit
@@ -12,9 +12,9 @@ number_cells_per_wavelength = 20; % 最高频率 f = c / (max(delta_x, delta_y, 
 number_of_cells_per_wavelength = 20;
 
 % cell size
-dx = 0.715e-3;
-dy = 0.508e-3;
-dz = 0.5e-3;
+dx = 7.5e-3;
+dy = 7.5e-3;
+dz = 7.5e-3;
 
 % define boundary stuct
 % pec boundary
@@ -84,8 +84,8 @@ material_type(3).sigma_e = 0;
 material_type(3).sigma_m = 1e10;
 material_type(3).color = [0 1 0];
 % dielectric A
-material_type(4).eps_r = 9.8;
-material_type(4).mu_r = 1;
+material_type(4).eps_r = 3;
+material_type(4).mu_r = 2;
 material_type(4).sigma_e = 0;
 material_type(4).sigma_m = 0;
 material_type(4).color = [0 0 1];

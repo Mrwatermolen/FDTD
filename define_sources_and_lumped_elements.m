@@ -6,6 +6,7 @@ diodes = [];
 resistors = [];
 inductors = [];
 capacitors = [];
+incident_plane_wave = [];
 
 % define source waveform types and parameters
 waveforms.sinusoidal(1).frequency = 1e9;
@@ -17,20 +18,18 @@ waveforms.derivative_gaussian(1).number_cells_per_wavelength = 20;
 waveforms.cosine_modulated_gaussian(1).bandwidth = 4e9;
 waveforms.cosine_modulated_gaussian(1).modulation_frequency = 2e9;
 
-
-
 % voltage sources
-voltage_sources(1).min_x = 0;
-voltage_sources(1).min_y = 12.2e-3;
-voltage_sources(1).min_z = 0;
-voltage_sources(1).max_x = 0;
-voltage_sources(1).max_y = 13.2e-3;
-voltage_sources(1).max_z = 1e-3;
-voltage_sources(1).direction = 'zp';
-voltage_sources(1).resistance = 50; % ohms
-voltage_sources(1).mangitude = 1; % volts
-voltage_sources(1).waveform_type = 'gaussian';
-voltage_sources(1).waveform_index = 2;
+% voltage_sources(1).min_x = 0;
+% voltage_sources(1).min_y = 12.2e-3;
+% voltage_sources(1).min_z = 0;
+% voltage_sources(1).max_x = 0;
+% voltage_sources(1).max_y = 13.2e-3;
+% voltage_sources(1).max_z = 1e-3;
+% voltage_sources(1).direction = 'zp';
+% voltage_sources(1).resistance = 50; % ohms
+% voltage_sources(1).mangitude = 1; % volts
+% voltage_sources(1).waveform_type = 'gaussian';
+% voltage_sources(1).waveform_index = 2;
 
 % % current sources
 % current_sources(1).min_x = 30 * dx;
@@ -103,8 +102,12 @@ voltage_sources(1).waveform_index = 2;
 % diodes(1).max_z = 1.0e-3;
 % diodes(1).direction = 'zn';
 
-
-
+incident_plane_wave.E_theta = 1;
+incident_plane_wave.E_phi = 0; 
+incident_plane_wave.theta_incident = 0; % degrees
+incident_plane_wave.phi_incident = 0;
+incident_plane_wave.waveform_type = 'gaussian';
+incident_plane_wave.waveform_index = 1;
 
 % disp('define_sources_and_lumped_elements');
 % 

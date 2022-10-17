@@ -38,3 +38,4 @@ initialize_resistors_updating_cofficients; % ok
 initialize_inductors_updating_cofficients; % ok
 initialize_capacitors_updating_cofficients; % ok
 initialize_diodes_updating_cofficients; % ok
+initialize_incident_field_updating_cofficients;

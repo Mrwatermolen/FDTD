@@ -158,9 +158,15 @@ for mi = 1:number_of_farfield_frequencies
 
     end
 
-    farfield.dirTheta(mi, :) = (k^2 ./ (8 * pi * eta_0 * radiated_power(mi))) ...
-        .* (abs(Lphi + eta_0 * Ntheta).^2);
-    farfield.dirPhi(mi, :) = (k^2 ./ (8 * pi * eta_0 * radiated_power(mi))) ...
-        .* (abs(Ltheta - eta_0 * Nphi).^2);
-
+    if incident_plane_wave.enabled
+        farfield.dirTheta(mi, :) = (k^2 ./ (8 * pi * eta_0 * incident_plane_wave.incident_power(mi))) ...
+            .* (abs(Lphi + eta_0 * Ntheta).^2);
+        farfield.dirPhi(mi, :) = (k^2 ./ (8 * pi * eta_0 * incident_plane_wave.incident_power(mi))) ...
+            .* (abs(Ltheta - eta_0 * Nphi).^2);
+    else
+        farfield.dirTheta(mi, :) = (k^2 ./ (8 * pi * eta_0 * radiated_power(mi))) ...
+            .* (abs(Lphi + eta_0 * Ntheta).^2);
+        farfield.dirPhi(mi, :) = (k^2 ./ (8 * pi * eta_0 * radiated_power(mi))) ...
+            .* (abs(Ltheta - eta_0 * Nphi).^2);
+    end
 end
