@@ -20,14 +20,15 @@ tjzyp(1, :, 1, :) = -0.25 * (Hx(li:ui - 1, uj, lk:uk - 1) + Hx(li + 1:ui, uj, lk
 
 tjxyp(1, :, 1, :) = 0.25 * (Hz(li:ui - 1, uj, lk:uk - 1) + Hz(li:ui - 1, uj, lk + 1:uk) ...
     + Hz(li:ui - 1, uj - 1, lk:uk - 1) + Hz(li:ui - 1, uj - 1, lk + 1:uk));
+
 tjyzp(1, :, :, 1) = 0.25 * (Hx(li:ui - 1, lj:uj - 1, uk) + Hx(li + 1:ui, lj:uj - 1, uk) ...
     + Hx(li:ui - 1, lj:uj - 1, uk - 1) + Hx(li + 1:ui, lj:uj - 1, uk - 1));
 
 tjxzp(1, :, :, 1) = -0.25 * (Hy(li:ui - 1, lj:uj - 1, uk) + Hy(li:ui - 1, lj + 1:uj, uk) ...
     + Hy(li:ui - 1, lj:uj - 1, uk - 1) + Hy(li:ui - 1, lj + 1:uj, uk - 1));
+
 tmyxn(1, 1, :, :) = -0.5 * (Ez(li, lj:uj - 1, lk:uk - 1) + Ez(li, lj + 1:uj, lk:uk - 1));
 tmzxn(1, 1, :, :) = 0.5 * (Ey(li, lj:uj - 1, lk:uk - 1) + Ey(li, lj:uj - 1, lk + 1:uk));
-
 tmxyn(1, :, 1, :) = 0.5 * (Ez(li:ui - 1, lj, lk:uk - 1) + Ez(li + 1:ui, lj, lk:uk - 1));
 tmzyn(1, :, 1, :) = -0.5 * (Ex(li:ui - 1, lj, lk:uk - 1) + Ex(li:ui - 1, lj, lk + 1:uk));
 tmxzn(1, :, :, 1) = -0.5 * (Ey(li:ui - 1, lj:uj - 1, lk) + Ey(li + 1:ui, lj:uj - 1, lk));
@@ -35,16 +36,19 @@ tmyzn(1, :, :, 1) = 0.5 * (Ex(li:ui - 1, lj:uj - 1, lk) + Ex(li:ui - 1, lj + 1:u
 
 tjyxn(1, 1, :, :) = 0.25 * (Hz(li, lj:uj - 1, lk:uk - 1) + Hz(li, lj:uj - 1, lk + 1:uk) ...
     + Hz(li - 1, lj:uj - 1, lk:uk - 1) + Hz(li - 1, lj:uj - 1, lk + 1:uk));
+
 tjzxn(1, 1, :, :) = -0.25 * (Hy(li, lj:uj - 1, lk:uk - 1) + Hy(li, lj + 1:uj, lk:uk - 1) ...
     + Hy(li - 1, lj:uj - 1, lk:uk - 1) + Hy(li - 1, lj + 1:uj, lk:uk - 1));
 
 tjzyn(1, :, 1, :) = 0.25 * (Hx(li:ui - 1, lj, lk:uk - 1) + Hx(li + 1:ui, lj, lk:uk - 1) ...
     + Hx(li:ui - 1, lj - 1, lk:uk - 1) + Hx(li + 1:ui, lj - 1, lk:uk - 1));
+
 tjxyn(1, :, 1, :) = -0.25 * (Hz(li:ui - 1, lj, lk:uk - 1) + Hz(li:ui - 1, lj, lk + 1:uk) ...
     + Hz(li:ui - 1, lj - 1, lk:uk - 1) + Hz(li:ui - 1, lj - 1, lk + 1:uk));
 
 tjyzn(1, :, :, 1) = -0.25 * (Hx(li:ui - 1, lj:uj - 1, lk) + Hx(li + 1:ui, lj:uj - 1, lk) ...
     + Hx(li:ui - 1, lj:uj - 1, lk - 1) + Hx(li + 1:ui, lj:uj - 1, lk - 1));
+
 tjxzn(1, :, :, 1) = 0.25 * (Hy(li:ui - 1, lj:uj - 1, lk) + Hy(li:ui - 1, lj + 1:uj, lk) ...
     + Hy(li:ui - 1, lj:uj - 1, lk - 1) + Hy(li:ui - 1, lj + 1:uj, lk - 1));
 

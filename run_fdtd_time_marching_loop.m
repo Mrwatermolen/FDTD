@@ -2,7 +2,6 @@ disp('run_fdtd_time_marching_loop');
 
 start_time = cputime;
 current_time = 0;
-
 for time_step = 1:number_time_steps
     update_incident_fields;
     update_magentic_field;

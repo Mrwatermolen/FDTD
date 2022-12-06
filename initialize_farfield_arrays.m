@@ -58,7 +58,6 @@ cjyzn = zeros(number_of_farfield_frequencies, ui - li, uj - lj, 1);
 cjzxn = zeros(number_of_farfield_frequencies, 1, uj - lj, uk - lk);
 cjzyn = zeros(number_of_farfield_frequencies, ui - li, 1, uk - lk);
 
-
 cmxyp = zeros(number_of_farfield_frequencies, ui - li, 1, uk - lk);
 cmxzp = zeros(number_of_farfield_frequencies, ui - li, uj - lj, 1);
 cmyxp = zeros(number_of_farfield_frequencies, 1, uj - lj, uk - lk);

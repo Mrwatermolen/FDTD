@@ -22,8 +22,8 @@ for i = 1:number_bricks
     end
 
     if (blz == buz)
-        sigma_e_x(blx:bux - 1, bly:buy - 1, blz) = sigma_pec;
-        sigma_e_y(blx:bux, bly:buy, blz) = sigma_pec;
+        sigma_e_x(blx:bux - 1, bly:buy, blz) = sigma_pec;
+        sigma_e_y(blx:bux, bly:buy - 1, blz) = sigma_pec;
     end
 
 end

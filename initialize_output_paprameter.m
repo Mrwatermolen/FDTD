@@ -22,13 +22,13 @@ for i = 1:number_sampled_magnetic_fields
     sampled_magnetic_fields(i).j = round((sampled_magnetic_fields(i).y - fdtd_domain.min_y) / dy) + 1;
     sampled_magnetic_fields(i).k = round((sampled_magnetic_fields(i).z - fdtd_domain.min_z) / dz) + 1;
     sampled_magnetic_fields(i).sampled_values = zeros(1, number_time_steps);
-    sampled_magnetic_fields(i).time = ([1:number_time_steps]) * dt;
+    sampled_magnetic_fields(i).time = ([1:number_time_steps] - 0.5) * dt;
 end
 
 for i = 1:number_sampled_voltages
-    sampled_voltages(i).is = round((sampled_voltages(i).mix_x - fdtd_domain.min_x) / dx) + 1;
-    sampled_voltages(i).js = round((sampled_voltages(i).mix_y - fdtd_domain.min_y) / dy) + 1;
-    sampled_voltages(i).ks = round((sampled_voltages(i).mix_z - fdtd_domain.min_z) / dz) + 1;
+    sampled_voltages(i).is = round((sampled_voltages(i).min_x - fdtd_domain.min_x) / dx) + 1;
+    sampled_voltages(i).js = round((sampled_voltages(i).min_y - fdtd_domain.min_y) / dy) + 1;
+    sampled_voltages(i).ks = round((sampled_voltages(i).min_z - fdtd_domain.min_z) / dz) + 1;
     sampled_voltages(i).ie = round((sampled_voltages(i).max_x - fdtd_domain.min_x) / dx) + 1;
     sampled_voltages(i).je = round((sampled_voltages(i).max_y - fdtd_domain.min_y) / dy) + 1;
     sampled_voltages(i).ke = round((sampled_voltages(i).max_z - fdtd_domain.min_z) / dz) + 1;
@@ -62,9 +62,9 @@ for i = 1:number_sampled_voltages
 end
 
 for i = 1:number_sampled_currents
-    sampled_currents(i).is = round((sampled_currents(i).mix_x - fdtd_domain.min_x) / dx) + 1;
-    sampled_currents(i).js = round((sampled_currents(i).mix_y - fdtd_domain.min_y) / dy) + 1;
-    sampled_currents(i).ks = round((sampled_currents(i).mix_z - fdtd_domain.min_z) / dz) + 1;
+    sampled_currents(i).is = round((sampled_currents(i).min_x - fdtd_domain.min_x) / dx) + 1;
+    sampled_currents(i).js = round((sampled_currents(i).min_y - fdtd_domain.min_y) / dy) + 1;
+    sampled_currents(i).ks = round((sampled_currents(i).min_z - fdtd_domain.min_z) / dz) + 1;
     sampled_currents(i).ie = round((sampled_currents(i).max_x - fdtd_domain.min_x) / dx) + 1;
     sampled_currents(i).je = round((sampled_currents(i).max_y - fdtd_domain.min_y) / dy) + 1;
     sampled_currents(i).ke = round((sampled_currents(i).max_z - fdtd_domain.min_z) / dz) + 1;

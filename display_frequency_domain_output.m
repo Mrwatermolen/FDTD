@@ -48,17 +48,20 @@ for i = 1:number_of_ports
         frequencies = ports(i).frequencies * 1e-9;
         for j = 1:number_of_ports
             S = ports(i).S(j).values;
-            Sdb = 40 * log10(abs(S));
+            Sdb = 20 * log10(abs(S));
             Sphase = angle(S) * 180/pi;
             figure;
             subplot(2, 1, 1);
             plot(frequencies, Sdb);
             title(['S', num2str(j), num2str(i)])
+            xlabel('frequency (GHz)');
+            ylabel('magnitude');
             grid on;
-%             title(['S', num2str(j), num2str(i)])
-%             subplot(2, 1, 2);
-%             plot(frequencies, Sphase);
-%             grid on;
+            subplot(2, 1, 2);
+            plot(frequencies, Sphase);
+            xlabel('frequency (GHz)');
+            ylabel('phase (degrees)');
+            grid on;
             drawnow;
         end
     end

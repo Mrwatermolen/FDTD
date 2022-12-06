@@ -37,7 +37,7 @@ end
 for i = 1:number_of_ports
     svi = ports(i).sampled_voltage_index;
     sci = ports(i).sampled_current_index;
-    Z = ports(i).impedancc;
+    Z = ports(i).impedance;
     V = sampled_voltages(svi).frequency_domain_value;
     I = sampled_currents(sci).frequency_domain_value;
     ports(i).a = 0.5 * (V + Z .* I) ./ sqrt(real(Z));
